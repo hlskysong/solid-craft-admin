@@ -5,6 +5,7 @@
  * 固定顶栏/侧栏、多标签/面包屑/页脚、内容宽度。全部复用 solid-craft 组件，
  * 宿主 CSS 只负责图卡/色板这类 Pro 专有排版（见 styles.css .pro-setting-*）。
  */
+import { Check } from 'solid-craft-icons';
 import { For } from 'solid-js';
 import { Drawer } from 'solid-craft/drawer';
 import { Divider } from 'solid-craft/divider';
@@ -121,7 +122,11 @@ export default function SettingDrawer() {
                     aria-label={p.name}
                     aria-pressed={primaryKey() === p.key}
                   >
-                    {primaryKey() === p.key && <span class="pro-setting-color-check">✓</span>}
+                    {primaryKey() === p.key && (
+                      <span class="pro-setting-color-check">
+                        <Check size="14" />
+                      </span>
+                    )}
                   </button>
                 </Tooltip>
               )}

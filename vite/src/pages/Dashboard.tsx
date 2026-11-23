@@ -1,6 +1,9 @@
+import { Activity, ArrowRight, CircleAlert, Database, Info, LayoutList } from 'solid-craft-icons';
 import { For } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import { Card, Tag, Table, Title } from 'solid-craft';
 import type { TableColumn } from 'solid-craft';
+import type { NavIcon } from './meta';
 
 interface RecentItem {
   id: string;
@@ -23,15 +26,15 @@ interface Stat {
   delta: string;
   trend: 'up' | 'down' | 'flat';
   tone: 'blue' | 'green' | 'amber' | 'red';
-  icon: string;
+  icon: NavIcon;
   spark: number[];
 }
 
 const STATS: Stat[] = [
-  { label: '设备台账总数', value: '1,284', delta: '本月 +32', trend: 'up', tone: 'blue', icon: '▦', spark: [4, 6, 5, 8, 7, 9, 10] },
-  { label: '待审批计划', value: '17', delta: '较昨日 -4', trend: 'down', tone: 'green', icon: '▤', spark: [9, 8, 8, 6, 7, 5, 4] },
-  { label: '本月维检完成率', value: '92.6%', delta: '目标 90%', trend: 'up', tone: 'amber', icon: '◉', spark: [5, 6, 6, 7, 8, 8, 9] },
-  { label: '异常告警', value: '3', delta: '需关注', trend: 'flat', tone: 'red', icon: '⚠', spark: [3, 2, 4, 3, 5, 4, 3] },
+  { label: '设备台账总数', value: '1,284', delta: '本月 +32', trend: 'up', tone: 'blue', icon: Database, spark: [4, 6, 5, 8, 7, 9, 10] },
+  { label: '待审批计划', value: '17', delta: '较昨日 -4', trend: 'down', tone: 'green', icon: LayoutList, spark: [9, 8, 8, 6, 7, 5, 4] },
+  { label: '本月维检完成率', value: '92.6%', delta: '目标 90%', trend: 'up', tone: 'amber', icon: Activity, spark: [5, 6, 6, 7, 8, 8, 9] },
+  { label: '异常告警', value: '3', delta: '需关注', trend: 'flat', tone: 'red', icon: CircleAlert, spark: [3, 2, 4, 3, 5, 4, 3] },
 ];
 
 const STATUS_META = {
@@ -78,7 +81,9 @@ export default function Dashboard() {
           {(stat) => (
             <Card class="pro-stat-card">
               <div class="pro-stat-top">
-                <span class={`pro-stat-icon tone-${stat.tone}`} aria-hidden="true">{stat.icon}</span>
+                <span class={`pro-stat-icon tone-${stat.tone}`} aria-hidden="true">
+                  <Dynamic component={stat.icon} size="20" />
+                </span>
                 <span class={`pro-stat-delta trend-${stat.trend}`}>{stat.delta}</span>
               </div>
               <div class="pro-stat-value">{stat.value}</div>
@@ -96,7 +101,10 @@ export default function Dashboard() {
       <div class="pro-panel">
         <div class="pro-panel-head">
           <Title level={4}>最近采购计划</Title>
-          <button type="button" class="pro-link">查看全部 →</button>
+          <button type="button" class="pro-link">
+            查看全部
+            <span aria-hidden="true"><ArrowRight size="14" /></span>
+          </button>
         </div>
         <Table
           columns={columns}
@@ -109,7 +117,7 @@ export default function Dashboard() {
       </div>
 
       <div class="pro-alert">
-        <span aria-hidden="true">ℹ</span>
+        <span aria-hidden="true"><Info size="16" /></span>
         <span>本页为 solid-craft admin 模板的纯前端演示：统计卡 / 标签 / 表格均来自 solid-craft 组件，数据为静态示例，未接入后端。</span>
       </div>
     </>

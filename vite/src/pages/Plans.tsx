@@ -1,3 +1,4 @@
+import { Plus } from 'solid-craft-icons';
 import { createMemo, createSignal, onMount, type JSX } from 'solid-js';
 import {
   Button,
@@ -209,7 +210,8 @@ export default function Plans() {
                 setOpen(true);
               }}
             >
-              ＋ 新增计划
+              <Plus size="16" />
+              新增计划
             </Button>
           </div>
           <span class="pro-toolbar-meta">当前 {visible().length} 条 · 最近操作：{log()}</span>

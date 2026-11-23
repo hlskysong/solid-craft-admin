@@ -1,10 +1,12 @@
 import { Outlet, useLocation, useNavigate } from '@tanstack/solid-router';
+import { ChevronLeft, ChevronRight, Settings, X } from 'solid-craft-icons';
 import { createEffect, createMemo, createSignal, For, onCleanup, type Component } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import { ConfigProvider } from 'solid-craft/config-provider';
 import { Tag } from 'solid-craft/tag';
 import { Tooltip } from 'solid-craft/tooltip';
 import SettingDrawer from './components/SettingDrawer';
-import { DEFAULT_PAGE, pageFromPath, pageMeta, PAGES, type PageKey } from './pages/meta';
+import { DEFAULT_PAGE, pageFromPath, pageMeta, PAGES, type NavIcon, type PageKey } from './pages/meta';
 import {
   contentWidth,
   density,
@@ -23,7 +25,7 @@ interface NavItem {
   key: PageKey;
   path: string;
   label: string;
-  icon: string;
+  icon: NavIcon;
   group: string;
 }
 
@@ -49,7 +51,9 @@ const MenuItems: Component<{ items: NavItem[]; horizontal?: boolean; onNavigate:
         title={item.label}
         onClick={() => props.onNavigate(item.path)}
       >
-        <span class="pro-menu-icon" aria-hidden="true">{item.icon}</span>
+        <span class="pro-menu-icon" aria-hidden="true">
+          <Dynamic component={item.icon} size="1em" />
+        </span>
         <span class="pro-menu-label">{item.label}</span>
       </button>
     )}
@@ -196,7 +200,9 @@ const App: Component = () => {
                 onClick={() => setCollapsed(!collapsed())}
                 aria-label={collapsed() ? '展开侧栏' : '收起侧栏'}
               >
-                <span aria-hidden="true">{collapsed() ? '»' : '«'}</span>
+                <span aria-hidden="true">
+                  <Dynamic component={collapsed() ? ChevronRight : ChevronLeft} size="1em" />
+                </span>
                 <span class="pro-menu-label">收起侧栏</span>
               </button>
             </aside>
@@ -227,7 +233,7 @@ const App: Component = () => {
                     onClick={() => setSettingOpen(true)}
                     aria-label="页面设置"
                   >
-                    ⚙
+                    <Settings size="18" />
                   </button>
                 </Tooltip>
                 <Tooltip content="演示账号 · Admin">
@@ -251,7 +257,7 @@ const App: Component = () => {
                       data-active={page() === key}
                     >
                       <button type="button" class="pro-tab-main" onClick={() => void navigate({ to: pageMeta(key).path })}>
-                        <span aria-hidden="true">{NAV.find((item) => item.key === key)?.icon}</span>
+                        <Dynamic component={NAV.find((item) => item.key === key)?.icon} size="1em" />
                         {NAV.find((item) => item.key === key)?.label}
                       </button>
                       <button
@@ -260,7 +266,7 @@ const App: Component = () => {
                         onClick={() => closeTab(key)}
                         aria-label={`关闭${NAV.find((item) => item.key === key)?.label}`}
                       >
-                        ×
+                        <X size="14" />
                       </button>
                     </div>
                   )}
