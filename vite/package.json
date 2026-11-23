@@ -1,0 +1,26 @@
+{
+  "name": "solid-craft-admin-vite",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@tanstack/solid-router": "1.170.43",
+    "solid-craft": "link:../../ui-design/packages/core",
+    "solid-craft-icons": "link:../../ui-design/packages/icons",
+    "solid-craft-tokens": "link:../../ui-design/packages/tokens",
+    "solid-js": "1.9.18"
+  },
+  "devDependencies": {
+    "click-to-ide": "link:../_shared/click-to-ide",
+    "solid-devtools": "^0.34.5",
+    "typescript": "7.0.2",
+    "vite": "8.3.6",
+    "vite-plugin-solid": "2.11.15"
+  }
+}

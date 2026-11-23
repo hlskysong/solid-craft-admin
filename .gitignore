@@ -1,0 +1,18 @@
+# 依赖（pnpm workspace 各包）
+node_modules/
+
+# 构建产物
+dist/
+build/
+.turbo/
+.tarballs/
+
+# 系统 / 编辑器杂文件
+.DS_Store
+*.log
+
+# 本地环境变量（含凭据，禁止入库）
+.env
+.env.*
+!.env.example
+.npmrc
